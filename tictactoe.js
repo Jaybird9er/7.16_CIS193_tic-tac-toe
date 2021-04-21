@@ -72,7 +72,16 @@ function checkForWinner() {
 }
 
 function newGame() {
-	// TODO: Complete the function
+	clearTimeout(computerMoveTimeout);
+	computerMoveTimeout = 0;
+	let buttons = getGameBoardButtons();
+	for (let button of buttons) {
+		button.innerHTML = "";
+		button.classList.removeAttribute("class");
+		button.removeAttribute("disabled");
+	}
+	playerTurn = true;
+	document.getElementById("turnInfo").innerHTML = "Your turn";
 }
 
 function boardButtonClicked(button) {
