@@ -91,14 +91,18 @@ function boardButtonClicked(button) {
 		button.innerHTML = "X";
 		button.classList.add("x");
 		button.setAttribute("disabled", true);
+		playerTurn = false;
 		switchTurn();
 	}
 }
 
 function switchTurn() {
-	if (checkForWinner === gameStatus.MORE_MOVES_LEFT) {
+	let gamePlay = checkForWinner();
+	if (gamePlay === gameStatus.MORE_MOVES_LEFT) {
 		if (playerTurn == false) {
+			console.log("test");
 			setTimeout(function() {
+				makeComputerMove();
 				return computerMoveTimeout;
 			}, 1000);
 		}
