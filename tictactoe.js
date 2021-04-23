@@ -87,19 +87,16 @@ function newGame() {
 }
 
 function boardButtonClicked(button) {
-	let btnClicked = document.querySelectorAll("div#gameBoard button");
 	if (playerTurn == true) {
-		for (let i = 0; i < btnClicked.length; i++) {
-			btnClicked[i].innerHTML = "X";
-			btnClicked[i].classList.add("x");
-			btnClicked[i].setAttribute("disabled", true);
-			switchTurn();
-		}
+		button.innerHTML = "X";
+		button.classList.add("x");
+		button.setAttribute("disabled", true);
+		switchTurn();
 	}
 }
 
 function switchTurn() {
-	if (checkForWinner() === gameStatus.MORE_MOVES_LEFT) {
+	if (checkForWinner === gameStatus.MORE_MOVES_LEFT) {
 		if (playerTurn == false) {
 			setTimeout(function() {
 				return computerMoveTimeout;
