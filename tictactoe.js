@@ -71,13 +71,15 @@ function checkForWinner() {
 	return gameStatus.DRAW_GAME;
 }
 
+// My Work ——————————————————————————————
+
 function newGame() {
 	clearTimeout(computerMoveTimeout);
 	computerMoveTimeout = 0;
 	let buttons = getGameBoardButtons();
 	for (let button of buttons) {
 		button.innerHTML = "";
-		button.classList.removeAttribute("class");
+		button.removeAttribute("class");
 		button.removeAttribute("disabled");
 	}
 	playerTurn = true;
@@ -85,7 +87,12 @@ function newGame() {
 }
 
 function boardButtonClicked(button) {
-	// TODO: Complete the function
+	let btnClicked = document.querySelectorAll("div#gameBoard > button");
+	if (playerTurn == false) {
+		for (let i = 0; i < btnClicked.length; i++) {
+			btnClicked[i].onclick.innerHTML = "X";
+		}
+	}
 }
 
 function switchTurn() {
