@@ -87,7 +87,7 @@ function newGame() {
 }
 
 function boardButtonClicked(button) {
-	if (playerTurn == true) {
+	if (playerTurn === true) {
 		button.innerHTML = "X";
 		button.classList.add("x");
 		button.setAttribute("disabled", true);
@@ -97,27 +97,26 @@ function boardButtonClicked(button) {
 }
 
 function switchTurn() {
-	let gamePlay = checkForWinner();
-	if (gamePlay === gameStatus.MORE_MOVES_LEFT) {
-		if (playerTurn == false) {
-			console.log("test");
+	checkForWinner();
+	if (checkForWinner() === gameStatus.MORE_MOVES_LEFT) {
+		document.getElementById("turnInfo").textContent = "Computer's turn";
+		if (playerTurn === false) {
 			setTimeout(function() {
 				makeComputerMove();
 				return computerMoveTimeout;
 			}, 1000);
+			playerTurn = true;
+			document.getElementById("turnInfo").textContent = "Your turn";
 		}
-		playerTurn = true;
-		document.getElementById("turnInfo").textContent = "Your turn";
 	}
 	else {
-		playerTurn = false;
-		if (checkForWinner === gameStatus.HUMAN_WINS) {
+		if (checkForWinner() === gameStatus.HUMAN_WINS) {
 			document.getElementById("turnInfo").textContent = "You win!";
 		}
-		else if (checkForWinner === gameStatus.COMPUTER_WINS) {
+		else if (checkForWinner() === gameStatus.COMPUTER_WINS) {
 			document.getElementById("turnInfo").textContent = "Computer wins!";
 		}
-		else if (checkForWinner === gameStatus.DRAW_GAME) {
+		else if (checkForWinner() === gameStatus.DRAW_GAME) {
 			document.getElementById("turnInfo").textContent = "Draw game";
 		}
 	}
@@ -126,14 +125,14 @@ function switchTurn() {
 function makeComputerMove() {
 	let buttons = getGameBoardButtons();
 	for (let i = 0; i < buttons.length; i++) {
-		let btnNum = Math.floor(Math.random() * 8);
-		if (buttons[btnNum].innerHTML !== "X") {
+		let btnNum = Math.floor(Math.random() * 9);
+		if (buttons[btnNum].innerHTML !== "X" && buttons[btnNum].innerHTML !== "O") {
 			buttons[btnNum].innerHTML = "O";
 			buttons[btnNum].classList.add("o");
 			buttons[btnNum].setAttribute("disabled", true);
-			i = 8;
+			i = 9;
 		}
-		switchTurn();
 	}
+	switchTurn();
 	
 }
