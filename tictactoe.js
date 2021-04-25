@@ -91,22 +91,25 @@ function boardButtonClicked(button) {
 		button.innerHTML = "X";
 		button.classList.add("x");
 		button.setAttribute("disabled", true);
-		playerTurn = false;
 		switchTurn();
 	}
 }
 
 function switchTurn() {
+	if (playerTurn === true)
+		playerTurn = false;
+	else
+		playerTurn = true;
 	checkForWinner();
 	if (checkForWinner() === gameStatus.MORE_MOVES_LEFT) {
 		document.getElementById("turnInfo").textContent = "Computer's turn";
 		if (playerTurn === false) {
 			setTimeout(function() {
 				makeComputerMove();
+				playerTurn = true;
+				document.getElementById("turnInfo").textContent = "Your turn";
 				return computerMoveTimeout;
 			}, 1000);
-			playerTurn = true;
-			document.getElementById("turnInfo").textContent = "Your turn";
 		}
 	}
 	else {
@@ -119,6 +122,7 @@ function switchTurn() {
 		else if (checkForWinner() === gameStatus.DRAW_GAME) {
 			document.getElementById("turnInfo").textContent = "Draw game";
 		}
+		playerTurn = false;
 	}
 }
 
